@@ -1,7 +1,23 @@
-export default async function Page() {
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Header from "@/components/Header";
+
+export default function HomePage() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      Hello Cinema Guru
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
