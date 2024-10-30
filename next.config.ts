@@ -1,8 +1,18 @@
-/** @type {import('next').NextConfig} */
+import { NextConfig } from 'next';
 
-const nextConfig = {
+/** @type {NextConfig} */
+const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/login',
+        permanent: true,
+      },
+    ];
   },
 };
 
