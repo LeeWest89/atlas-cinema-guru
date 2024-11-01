@@ -45,8 +45,8 @@ export default function Sidebar() {
           <span className="flex items-center cursor-pointer">
             <svg
               fill="none"
-              height="20px"
-              width="20px"
+              height="17px"
+              width="24px"
               viewBox="0 0 485 485"
               xmlns="http://www.w3.org/2000/svg"
               className="group-hover:mr-2"
