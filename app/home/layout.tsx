@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideNavBar";
 import SearchHandler from "@/components/SearchHandler";
+import YearSearchHandler from "@/components/YearSearchHandler";
 
 export const metadata: Metadata = {
   title: "Cinema Guru | Atlas School",
@@ -18,7 +19,10 @@ export default function MainLayout({ children }: Props) {
       <Header />
       <div className="flex">
         <Sidebar />
-        <SearchHandler />
+        <div>
+          <SearchHandler />
+          <YearSearchHandler />
+        </div>
         <div className="flex-1 flex flex-col">
           <main className="p-6 flex-1">{children}</main>
         </div>
