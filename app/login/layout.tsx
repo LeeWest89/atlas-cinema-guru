@@ -13,7 +13,7 @@ type Props = {
 export default function LoginLayout({ children }: Props) {
   return (
     <SessionProvider>
-      <div className="antialiased bg-gray-100 text-white flex flex-col items-center justify-center min-h-screen">
+      <div>
         {children}
       </div>
     </SessionProvider>

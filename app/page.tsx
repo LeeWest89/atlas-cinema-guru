@@ -1,16 +1,12 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+export default async function HomePage() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/checkSession`, {
+    method: 'GET',
+    credentials: 'include',
+  });
 
-export default function HomePage() {
-  const { status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
+  if (res.status === 401) {
+    redirect("/login");
+  }
 }
