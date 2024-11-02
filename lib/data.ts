@@ -64,8 +64,8 @@ export async function fetchTitles(
 
     const formattedTitles = titles.map((row) => ({
       ...row,
-      favorited: favorites.includes(row.id),
-      watchLater: watchLater.includes(row.id),
+      // favorited: favorites.includes(row.id),
+      // watchLater: watchLater.includes(row.id),
       image: `/images/${row.id}.webp`,
     }));
 
