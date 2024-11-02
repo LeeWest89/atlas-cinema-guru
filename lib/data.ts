@@ -32,6 +32,19 @@ export async function fetchTitles(
         .execute()
     ).map((row) => row.title_id);
 
+    const totalCount = await db
+      .selectFrom("titles")
+      .selectAll()
+      .where("released", ">=", minYear)
+      .where("released", "<=", maxYear)
+      .where("title", "ilike", `%${query}%`)
+      .where("genre", "in", genres)
+      .execute()
+      .then(rows => {
+        console.log("Total count rows:", rows);
+        return rows.length;
+      });
+
     //Fetch titles
     const titles = await db
       .selectFrom("titles")
@@ -43,14 +56,23 @@ export async function fetchTitles(
       .orderBy("titles.title", "asc")
       .limit(6)
       .offset((page - 1) * 6)
-      .execute();
+      .execute()
+      .then(titles => {
+        console.log("Fetched titles:", titles);
+        return titles;
+      });
 
-    return titles.map((row) => ({
+    const formattedTitles = titles.map((row) => ({
       ...row,
       favorited: favorites.includes(row.id),
       watchLater: watchLater.includes(row.id),
       image: `/images/${row.id}.webp`,
     }));
+
+    const totalPages = Math.ceil(totalCount / 6);
+
+    return { titles: formattedTitles, totalPages };
+
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch topics.");

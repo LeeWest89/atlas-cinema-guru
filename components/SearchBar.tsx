@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, ChangeEvent } from "react";
 
 interface SearchBarProps {

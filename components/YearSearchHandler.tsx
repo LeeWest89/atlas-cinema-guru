@@ -7,9 +7,6 @@ export default function YearSearchHandler() {
     console.log("Searching from:", minYear, "to:", maxYear);
     try {
       const response = await fetch(`/api/titles?minYear=${encodeURIComponent(minYear)}&maxYear=${encodeURIComponent(maxYear)}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
       const data = await response.json();
       console.log("Fetched data:", data);
     } catch (error) {
@@ -18,8 +15,6 @@ export default function YearSearchHandler() {
   };
 
   return (
-    <div>
-      <YearButtons onSearch={handleSearch} />
-    </div>
+    <YearButtons onSearch={handleSearch} />
   );
 }
