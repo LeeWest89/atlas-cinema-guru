@@ -17,19 +17,20 @@ interface MovieGridProps {
   updateTotalPages: (pages: number) => void;
   minYear?: string;
   maxYear?: string;
-  className?: string;
+  query?: string;
 }
 
-export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages, minYear, maxYear, className }) => {
+export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages, minYear, maxYear, query }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMovies = async (page: number, genres: string[], minYear?: string, maxYear?: string) => {
+    const fetchMovies = async (page: number, genres: string[], minYear?: string, maxYear?: string, query?: string) => {
       try {
         const genreQuery = genres.length > 0 ? `&genres=${encodeURIComponent(genres.join(","))}` : "";
         const yearQuery = (minYear || maxYear) ? `&minYear=${minYear}&maxYear=${maxYear}` : "";
-        const res = await fetch(`/api/titles?page=${page}${genreQuery}${yearQuery}`);
+        const queryParam = query ? `&query=${encodeURIComponent(query)}` : "";
+        const res = await fetch(`/api/titles?page=${page}${genreQuery}${yearQuery}${queryParam}`);
         const data = await res.json();
 
         setMovies(data.titles || []);
@@ -41,11 +42,11 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenre
       }
     };
 
-    fetchMovies(currentPage, selectedGenres, minYear, maxYear);
-  }, [currentPage, selectedGenres, minYear, maxYear]);
+    fetchMovies(currentPage, selectedGenres, minYear, maxYear, query);
+  }, [currentPage, selectedGenres, minYear, maxYear, query]);
 
   return (
-    <div className={`px-10 py-3 ${className}`}>
+    <div className="px-10 py-3">
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-x-40 gap-y-2"> {/* Add gap for spacing between cards */}

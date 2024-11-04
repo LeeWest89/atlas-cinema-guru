@@ -2,16 +2,13 @@
 
 import SearchBar from "./SearchBar";
 
-export default function SearchHandler() {
+interface SearchHandlerProps {
+  onSearch: (query: string) => void;
+}
+
+export default function SearchHandler({ onSearch }: SearchHandlerProps) {
   const handleSearch = async (query: string) => {
-    console.log("Searching for:", query);
-    try {
-      const response = await fetch(`/api/titles?query=${encodeURIComponent(query)}`);
-      const data = await response.json();
-      console.log("Fetched data:", data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    onSearch(query);
   };
 
   return (

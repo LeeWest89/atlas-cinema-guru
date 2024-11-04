@@ -21,6 +21,7 @@ export default function HomePage() {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [minYear, setMinYear] = useState<string>("");
   const [maxYear, setMaxYear] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     console.log("HomePage status:", status);
@@ -48,6 +49,11 @@ export default function HomePage() {
     setCurrentPage(1);
   };
 
+  const handleSearch = (newQuery: string) => {
+    setQuery(newQuery);
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <Header />
@@ -56,7 +62,7 @@ export default function HomePage() {
         <div className="flex-col w-full">
           <div className="flex w-full justify-between">
             <div>
-              <SearchHandler />
+              <SearchHandler onSearch={handleSearch} />
               <YearSearchHandler onSearch={handleYearSearch} />
             </div>
             <div>
@@ -70,6 +76,7 @@ export default function HomePage() {
               updateTotalPages={updateTotalPages}
               minYear={minYear}
               maxYear={maxYear}
+              query={query}
             />
             <div className="flex justify-center w-full">
               <MovieGrid
@@ -78,6 +85,7 @@ export default function HomePage() {
                 updateTotalPages={updateTotalPages}
                 minYear={minYear}
                 maxYear={maxYear}
+                query={query}
               />
             </div>
             <Pagination
