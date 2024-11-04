@@ -8,17 +8,19 @@ interface YearProps {
 export default function YearButtons({ onSearch }: YearProps) {
   const [minYear, setMinYear] = useState<string>("");
   const [maxYear, setMaxYear] = useState<string>("");
+  const currentYear = new Date().getFullYear().toString();
+  const defaultMinYear = "1800";
 
   const handleMinYear = (event: ChangeEvent<HTMLInputElement>) => {
     const newMinYear = event.target.value;
     setMinYear(newMinYear);
-    onSearch(newMinYear, maxYear);
+    onSearch(newMinYear || defaultMinYear, maxYear || currentYear);
   };
 
   const handleMaxYear = (event: ChangeEvent<HTMLInputElement>) => {
     const newMaxYear = event.target.value;
     setMaxYear(newMaxYear);
-    onSearch(minYear, newMaxYear);
+    onSearch(minYear || defaultMinYear, newMaxYear || currentYear);
   };
 
   return (

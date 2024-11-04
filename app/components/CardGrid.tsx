@@ -15,17 +15,20 @@ interface MovieGridProps {
   currentPage: number;
   selectedGenres: string[];
   updateTotalPages: (pages: number) => void;
+  minYear?: string;
+  maxYear?: string;
 }
 
-export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages }) => {
+export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages, minYear, maxYear }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMovies = async (page: number, genres: string[]) => {
+    const fetchMovies = async (page: number, genres: string[], minYear?: string, maxYear?: string) => {
       try {
         const genreQuery = genres.length > 0 ? `&genres=${encodeURIComponent(genres.join(","))}` : "";
-        const res = await fetch(`/api/titles?page=${page}${genreQuery}`);
+        const yearQuery = (minYear || maxYear) ? `&minYear=${minYear}&maxYear=${maxYear}` : "";
+        const res = await fetch(`/api/titles?page=${page}${genreQuery}${yearQuery}`);
         const data = await res.json();
 
         setMovies(data.titles || []);
@@ -37,8 +40,8 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenre
       }
     };
 
-    fetchMovies(currentPage, selectedGenres);
-  }, [currentPage, selectedGenres]);
+    fetchMovies(currentPage, selectedGenres, minYear, maxYear);
+  }, [currentPage, selectedGenres, minYear, maxYear]);
 
   return (
     <div className="p-4">
