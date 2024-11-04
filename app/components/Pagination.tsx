@@ -17,7 +17,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: { currentP
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 my-5 py-5">
+    <div className="flex items-center justify-center gap-1 my-5 py-5">
       {/* Prev Button */}
       <button
         onClick={handlePrev}

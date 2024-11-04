@@ -30,7 +30,7 @@ export default function YearButtons({ onSearch }: YearProps) {
           placeholder="Start Date"
           value={minYear}
           onChange={handleMinYear}
-          className="w-32 p-2 rounded-full border-2 border-Teal text-white placeholder-placeholderGrey bg-transparent"
+          className="text-center w-32 p-2 rounded-full border-2 border-Teal text-white bg-transparent"
         />
       </div>
       <div>
@@ -40,7 +40,7 @@ export default function YearButtons({ onSearch }: YearProps) {
           placeholder="End Date"
           value={maxYear}
           onChange={handleMaxYear}
-          className="w-32 p-2 rounded-full border-2 border-Teal text-white placeholder-placeholderGrey bg-transparent"
+          className="text-center w-32 p-2 rounded-full border-2 border-Teal text-white bg-transparent"
         />
       </div>
     </div>
