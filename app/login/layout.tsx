@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 import "@/app/global.css";
 
 export const metadata: Metadata = {
@@ -12,10 +11,8 @@ type Props = {
 
 export default function LoginLayout({ children }: Props) {
   return (
-    <SessionProvider>
       <div className="antialiased bg-gray-100 text-white flex flex-col items-center justify-center min-h-screen">
         {children}
       </div>
-    </SessionProvider>
   );
 }

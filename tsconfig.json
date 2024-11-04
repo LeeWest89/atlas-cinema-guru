@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     "seed/users.ts",
     "scripts/seed.js"
-  ],
+, ".next/page.tsx"  ],
   "exclude": ["node_modules"]
 }
