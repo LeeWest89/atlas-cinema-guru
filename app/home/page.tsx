@@ -53,8 +53,8 @@ export default function HomePage() {
       <Header />
       <div className="flex">
         <Sidebar />
-        <div className="flex-col">
-          <div className="flex w-[100%] justify-between">
+        <div className="flex-col w-full">
+          <div className="flex w-full justify-between">
             <div>
               <SearchHandler />
               <YearSearchHandler onSearch={handleYearSearch} />
@@ -63,7 +63,7 @@ export default function HomePage() {
               <GenreSearchHandler onGenreSelect={handleGenreSelect} />
             </div>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <FetchTitles
               currentPage={currentPage}
               selectedGenres={selectedGenres}
@@ -71,13 +71,15 @@ export default function HomePage() {
               minYear={minYear}
               maxYear={maxYear}
             />
-            <MovieGrid
-              currentPage={currentPage}
-              selectedGenres={selectedGenres}
-              updateTotalPages={updateTotalPages}
-              minYear={minYear}
-              maxYear={maxYear}
-            />
+            <div className="flex justify-center w-full">
+              <MovieGrid
+                currentPage={currentPage}
+                selectedGenres={selectedGenres}
+                updateTotalPages={updateTotalPages}
+                minYear={minYear}
+                maxYear={maxYear}
+              />
+            </div>
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}

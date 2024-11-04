@@ -21,7 +21,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <div className="ml-10 mt-10">
+    <div className="ml-10 mt-5">
       <h1 className="mb-2">Search</h1>
       <form>
         <input

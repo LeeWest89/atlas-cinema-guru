@@ -17,9 +17,10 @@ interface MovieGridProps {
   updateTotalPages: (pages: number) => void;
   minYear?: string;
   maxYear?: string;
+  className?: string;
 }
 
-export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages, minYear, maxYear }) => {
+export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenres, updateTotalPages, minYear, maxYear, className }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,12 +45,16 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ currentPage, selectedGenre
   }, [currentPage, selectedGenres, minYear, maxYear]);
 
   return (
-    <div className="p-4">
+    <div className={`px-10 py-3 ${className}`}>
       {error && <p className="text-red-500">{error}</p>}
-      <div className="grid grid-cols-3 gap-10">
-        {movies.map((movie) => (
-          <Card key={movie.id} movie={movie} />
-        ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-3 gap-x-40 gap-y-2"> {/* Add gap for spacing between cards */}
+          {movies.map((movie) => (
+            <div key={movie.id}>
+              <Card movie={movie} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

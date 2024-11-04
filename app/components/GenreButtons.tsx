@@ -46,7 +46,7 @@ export default function GenreButtons({ onGenreSelect }: GenreButtonsProps) {
   const genreChunks = chunkArray(genres, 5);
 
   return (
-    <div className="mr-28 mt-10">
+    <div className="mr-10 mt-5">
       <h1 className="mb-2">Genres</h1>
       {genreChunks.map((chunk, index) => (
         <div key={index} className="flex gap-2 mb-2">

@@ -27,7 +27,7 @@ export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
 
   return (
     <div
-      className="relative h-72 w-full rounded-2xl overflow-hidden bg-cover bg-center group border border-Teal"
+      className="relative w-full rounded-2xl overflow-hidden bg-cover bg-no-repeat aspect-[1/1] bg-center group border border-Teal"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
       }}

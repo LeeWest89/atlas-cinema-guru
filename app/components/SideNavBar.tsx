@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Sidebar() {
   return (
     <div
-      className={`bg-greenTeal h-screen p-5 transition-all duration-300 w-30 hover:w-64 group`}
+      className={`bg-greenTeal h-[1040.680] p-5 transition-all duration-300 w-30 hover:w-64 group`}
     >
       <div className="flex flex-col space-y-4 text-white">
         <Link href="/" passHref>
