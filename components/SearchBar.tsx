@@ -30,7 +30,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          className="w-72 p-2 rounded-full border-2 border-[#1ED2AF] text-white placeholder-custom bg-transparent"
+          className="w-72 p-2 rounded-full border-2 border-Teal text-white placeholder-placeholderGrey bg-transparent"
         />
       </form>
     </div>

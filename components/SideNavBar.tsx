@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Sidebar() {
   return (
     <div
-      className={`bg-[#20a48e] h-screen p-5 transition-all duration-300 w-30 hover:w-64 group`}
+      className={`bg-greenTeal h-screen p-5 transition-all duration-300 w-30 hover:w-64 group`}
     >
       <div className="flex flex-col space-y-4 text-white">
         <Link href="/" passHref>
@@ -75,7 +75,7 @@ export default function Sidebar() {
             <span className="w-0 opacity-0 group-hover:w-fit group-hover:opacity-100 transition-opacity">Watch Later</span>
           </span>
         </Link>
-        <div className="w-0 bg-[#1ED2AF] text-[#00003c] p-4 mt-4 rounded-lg max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:w-52 group-hover:opacity-100 transition-all">
+        <div className="w-0 bg-Teal text-darkBlue p-4 mt-4 rounded-lg max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:w-52 group-hover:opacity-100 transition-all">
           <h2 className="text-lg font-semibold">Latest Activities</h2>
           <p>This is a placeholder for the activity feed.</p>
         </div>

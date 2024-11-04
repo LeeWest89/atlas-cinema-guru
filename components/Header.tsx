@@ -6,7 +6,7 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-[#1ED2AF] px-3 h-16">
+    <header className="bg-Teal px-3 h-16">
       <div className="flex justify-between items-center h-full">
         <div className="flex items-center gap-4">
           <svg
@@ -30,13 +30,13 @@ export default function Header() {
               </g>
             </g>
           </svg>
-          <h1 className="text-[#00003c] font-bold">Cinema Guru</h1>
+          <h1 className="text-darkBlue font-bold">Cinema Guru</h1>
         </div>
         <div className="flex gap-4">
         {session && (
           <>
-            <h1 className="text-[#00003c]">Welcome, {session.user?.name}!</h1>
-            <button className="flex items-center gap-1 text-[#00003c]" onClick={() => signOut()}>
+            <h1 className="text-darkBlue">Welcome, {session.user?.name}!</h1>
+            <button className="flex items-center gap-1 text-darkBlue" onClick={() => signOut()}>
               <svg
                 width="20px"
                 height="20px"

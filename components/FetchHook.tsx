@@ -5,9 +5,10 @@ import { useSession } from "next-auth/react";
 
 type FetchTitlesProps = {
   query?: string;
+  currentPage?: number;
 };
 
-export default function FetchTitles({ query = "" }: FetchTitlesProps) {
+export default function FetchTitles({ query = "", currentPage = 1 }: FetchTitlesProps) {
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export default function FetchTitles({ query = "" }: FetchTitlesProps) {
     };
 
     const fetchTitles = async () => {
-      const url = `/api/titles?query=${encodeURIComponent(query)}`;
+      const url = `/api/titles?query=${encodeURIComponent(query)}&page=${currentPage}`;
       console.log("Fetching from:", url);
 
       try {
@@ -29,7 +30,7 @@ export default function FetchTitles({ query = "" }: FetchTitlesProps) {
     };
 
     fetchTitles();
-  }, [query, session, status]);
+  }, [query, currentPage, session, status]);
 
   return null;
 }

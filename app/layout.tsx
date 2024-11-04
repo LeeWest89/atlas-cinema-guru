@@ -13,7 +13,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body className="antialiased bg-[#00003c] text-white">
+      <body className="antialiased bg-darkBlue text-white">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

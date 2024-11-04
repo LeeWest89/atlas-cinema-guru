@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        placeholder: '#b0b0b0',
-      },
-      placeholderColor: {
-        custom: '#b0b0b0',
+        placeholderGrey: '#b0b0b0',
+        Teal: '#1ED2AF',
+        greenTeal: '#20a48e',
+        darkBlue: '#00003c',
       },
     },
   },

@@ -1,19 +1,9 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { signIn} from "next-auth/react";
 import Image from "next/image";
 
 export default function LoginPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/home");
-    }
-  }, [session, router]);
 
   return (
     <div className="p-5 bg-white shadow-md rounded-2xl flex flex-col items-center">
