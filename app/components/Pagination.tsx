@@ -2,7 +2,7 @@
 
 export const Pagination = ({ currentPage, totalPages, onPageChange }: { currentPage: number, totalPages: number, onPageChange: (page: number) => void }) => {
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = currentPage === totalPages;
+  const isNextDisabled = currentPage >= totalPages;
 
   const handlePrev= () => {
     if (currentPage > 1) {

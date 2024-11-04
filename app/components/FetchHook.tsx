@@ -7,9 +7,10 @@ type FetchTitlesProps = {
   query?: string;
   currentPage?: number;
   updateTotalPages: (totalCount: number) => void;
+  selectedGenres: string[];
 };
 
-export default function FetchTitles({ query = "", currentPage = 1, updateTotalPages }: FetchTitlesProps) {
+export default function FetchTitles({ query = "", currentPage = 1, selectedGenres, updateTotalPages }: FetchTitlesProps) {
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -18,21 +19,20 @@ export default function FetchTitles({ query = "", currentPage = 1, updateTotalPa
     };
 
     const fetchTitles = async () => {
-      const url = `/api/titles?query=${encodeURIComponent(query)}&page=${currentPage}`;
-      console.log("Fetching from:", url);
+      const genreQuery = selectedGenres.length > 0 ? `&genres=${encodeURIComponent(selectedGenres.join(","))}` : "";
+      const url = `/api/titles?query=${encodeURIComponent(query)}&page=${currentPage}${genreQuery}`;
 
       try {
         const response = await fetch(url);
         const data = await response.json();
         updateTotalPages(data.totalPages);
-        console.log("Fetched data:", data);
       } catch (error) {
         console.error("Error fetching titles:", error);
       }
     };
 
     fetchTitles();
-  }, [query, currentPage, updateTotalPages, session, status]);
+  }, [query, currentPage, selectedGenres, updateTotalPages, session, status]);
 
   return null;
 }

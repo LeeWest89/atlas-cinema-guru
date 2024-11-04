@@ -3,11 +3,16 @@
 import { useState } from "react";
 import GenreButtons from "./GenreButtons";
 
-export default function GenreSearchHandler() {
+interface GenreSearchHandlerProps {
+  onGenreSelect: (genres: string[]) => void;
+}
+
+export default function GenreSearchHandler({ onGenreSelect }: GenreSearchHandlerProps) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   const handleGenreSelect = async (genres: string[]) => {
     setSelectedGenres(genres);
+    onGenreSelect(genres);
     try {
       const genreQuery = genres.join(",");
       const response = await fetch(`/api/titles?genres=${encodeURIComponent(genreQuery)}`);

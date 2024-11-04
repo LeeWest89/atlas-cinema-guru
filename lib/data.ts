@@ -41,7 +41,6 @@ export async function fetchTitles(
       .where("genre", "in", genres)
       .execute()
       .then(rows => {
-        console.log("Total count rows:", rows);
         return rows.length;
       });
 
@@ -58,7 +57,6 @@ export async function fetchTitles(
       .offset((page - 1) * 6)
       .execute()
       .then(titles => {
-        console.log("Fetched titles:", titles);
         return titles;
       });
 

@@ -18,6 +18,7 @@ export default function HomePage() {
   
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   useEffect(() => {
     console.log("HomePage status:", status);
@@ -34,6 +35,11 @@ export default function HomePage() {
     setTotalPages(totalCount);
   };
 
+  const handleGenreSelect = (genres: string[]) => {
+    setSelectedGenres(genres);
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <Header />
@@ -46,19 +52,24 @@ export default function HomePage() {
               <YearSearchHandler />
             </div>
             <div>
-              <GenreSearchHandler />
+              <GenreSearchHandler onGenreSelect={handleGenreSelect} />
             </div>
           </div>
           <div>
-              <FetchTitles
-                currentPage={currentPage}
-                updateTotalPages={updateTotalPages}
-              />
-              <MovieGrid currentPage={currentPage} />
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
+            <FetchTitles
+              currentPage={currentPage}
+              selectedGenres={selectedGenres}
+              updateTotalPages={updateTotalPages}
+            />
+            <MovieGrid
+              currentPage={currentPage}
+              selectedGenres={selectedGenres}
+              updateTotalPages={updateTotalPages}
+            />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
             />
           </div>
         </div>
