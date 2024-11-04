@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react"; // Import useState
+import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideNavBar";
 import SearchHandler from "../../components/SearchHandler";
@@ -16,7 +16,7 @@ export default function HomePage() {
   const router = useRouter();
   
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     console.log("HomePage status:", status);
@@ -27,6 +27,10 @@ export default function HomePage() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const updateTotalPages= (totalCount: number) => {
+    setTotalPages(totalCount);
   };
 
   return (
@@ -44,7 +48,10 @@ export default function HomePage() {
           </div>
         </div>
         <div className="flex-1 flex flex-col">
-          <FetchTitles currentPage={currentPage} />
+          <FetchTitles
+          currentPage={currentPage}
+          updateTotalPages={updateTotalPages}
+          />
           <Pagination 
             currentPage={currentPage} 
             totalPages={totalPages} 

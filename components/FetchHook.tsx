@@ -6,9 +6,10 @@ import { useSession } from "next-auth/react";
 type FetchTitlesProps = {
   query?: string;
   currentPage?: number;
+  updateTotalPages: (totalCount: number) => void;
 };
 
-export default function FetchTitles({ query = "", currentPage = 1 }: FetchTitlesProps) {
+export default function FetchTitles({ query = "", currentPage = 1, updateTotalPages }: FetchTitlesProps) {
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function FetchTitles({ query = "", currentPage = 1 }: FetchTitles
       try {
         const response = await fetch(url);
         const data = await response.json();
+        updateTotalPages(data.totalPages);
         console.log("Fetched data:", data);
       } catch (error) {
         console.error("Error fetching titles:", error);
@@ -30,7 +32,7 @@ export default function FetchTitles({ query = "", currentPage = 1 }: FetchTitles
     };
 
     fetchTitles();
-  }, [query, currentPage, session, status]);
+  }, [query, currentPage, updateTotalPages, session, status]);
 
   return null;
 }
