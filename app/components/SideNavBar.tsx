@@ -7,18 +7,13 @@ import { useSession } from "next-auth/react";
 interface Activity {
   id: string;
   timestamp: string;
-  title_id: string;
+  title: string;  // Changed from title_id to title
   activity: "FAVORITED" | "WATCH_LATER";
-}
-
-interface Title {
-  title: string;
 }
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [titles, setTitles] = useState<Record<string, Title>>({});
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -32,13 +27,7 @@ export default function Sidebar() {
 
           if (data.activities) {
             console.log("Fetched Activities:", data.activities);
-            const titlesMap: Record<string, Title> = {};
-            data.activities.forEach((activity: Activity) => {
-              titlesMap[activity.title_id] = { title: activity.title };
-            });
-
-            setActivities(data.activities);
-            setTitles(titlesMap);
+            setActivities(data.activities); // Store activities directly
           }
         } catch (error) {
           console.error("Error fetching activities:", error);
@@ -129,22 +118,16 @@ export default function Sidebar() {
           <div className="space-y-2">
             {activities.map((activity) => (
               <div key={activity.id} className="text-sm ">
-                {titles[activity.title_id] ? (
-                  <>
-                    <span>{new Date(activity.timestamp).toLocaleString()} </span>
-                    <span>
-                      {activity.activity === "FAVORITED" ? `Favorited ` : `Added `}
-                    </span>
-                    <span className="font-bold">
-                      {titles[activity.title_id].title}
-                    </span>
-                    <span>
-                      {activity.activity === "FAVORITED" ? "" : " to Watch Later"}
-                    </span>
-                  </>
-                ) : (
-                  <span>{new Date(activity.timestamp).toLocaleString()} Loading title...</span>
-                )}
+                <span>{new Date(activity.timestamp).toLocaleString()} </span>
+                <span>
+                  {activity.activity === "FAVORITED" ? `Favorited ` : `Added `}
+                </span>
+                <span className="font-bold">
+                  {activity.title}  {/* Use title directly from the activity */}
+                </span>
+                <span>
+                  {activity.activity === "FAVORITED" ? "" : " to Watch Later"}
+                </span>
               </div>
             ))}
           </div>
