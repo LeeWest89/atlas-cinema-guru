@@ -1,8 +1,9 @@
 'use client';
 
-export const Pagination = ({ currentPage, totalPages, onPageChange }: { currentPage: number, totalPages: number, onPageChange: (page: number) => void }) => {
+export const Pagination = ({ currentPage, totalPages, onPageChange }: { currentPage: number, totalPages: number | undefined, onPageChange: (page: number) => void }) => {
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = currentPage >= totalPages;
+  const totalPagesSafe = totalPages || 1;
+  const isNextDisabled = currentPage >= totalPagesSafe || totalPagesSafe <= 1;
 
   const handlePrev= () => {
     if (currentPage > 1) {
@@ -11,10 +12,12 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: { currentP
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+    if (totalPagesSafe > 1 && currentPage < totalPagesSafe) {
+        onPageChange(currentPage + 1);
     }
   };
+
+  console.log(`Current Page: ${currentPage}, Total Pages: ${totalPages}, Is Next Disabled: ${isNextDisabled}`);
 
   return (
     <div className="flex items-center justify-center gap-1 my-5 py-5">

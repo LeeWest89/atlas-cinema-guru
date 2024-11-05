@@ -66,7 +66,10 @@ export default function HomePage() {
               <YearSearchHandler onSearch={handleYearSearch} />
             </div>
             <div>
-              <GenreSearchHandler onGenreSelect={handleGenreSelect} />
+              <GenreSearchHandler
+                onGenreSelect={handleGenreSelect}
+                pageType="titles"
+              />
             </div>
           </div>
           <div className="flex flex-col items-center">

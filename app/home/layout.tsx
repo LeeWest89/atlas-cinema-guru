@@ -10,7 +10,7 @@ type Props = {
   session: any;
 };
 
-export default function MainLayout({ children }: Props) {
+export default function HomeLayout({ children }: Props) {
   return (
     <div>{children}</div>
   );

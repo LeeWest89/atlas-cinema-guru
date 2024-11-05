@@ -82,6 +82,13 @@ export async function fetchTitles(
  */
 export async function fetchFavorites(page: number, userEmail: string) {
   try {
+    const totalCount = await db
+      .selectFrom("favorites")
+      .select("title_id")
+      .where("user_id", "=", userEmail)
+      .execute()
+      .then(rows => rows.length);
+
     const watchLater = (
       await db
         .selectFrom("watchlater")
@@ -100,12 +107,18 @@ export async function fetchFavorites(page: number, userEmail: string) {
       .offset((page - 1) * 6)
       .execute();
 
-    return titles.map((row) => ({
-      ...row,
-      favorited: true,
-      watchLater: watchLater.includes(row.id),
-      image: `/images/${row.id}.webp`,
-    }));
+    const totalPages = Math.ceil(totalCount / 6);
+
+    return {
+      titles: titles.map((row) => ({
+        ...row,
+        favorited: true,
+        watchLater: watchLater.includes(row.id),
+        image: `/images/${row.id}.webp`,
+      })),
+      totalPages,
+    };
+
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch favorites.");

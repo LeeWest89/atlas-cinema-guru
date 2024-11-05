@@ -17,8 +17,6 @@ export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
   const backgroundImageUrl = `/images/${movie.id}.webp`;
   const [isFavorited, setIsFavorited] = useState(movie.favorited || false);
   const [isWatchLater, setIsWatchLater] = useState(movie.watchlater || false);
-  const { data: session } = useSession();
-  const currentUser = session?.user;
 
   const handleFavoriteToggle = async () => {
     const method = isFavorited ? "DELETE" : "POST";
