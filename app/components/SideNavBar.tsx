@@ -1,12 +1,61 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+
+interface Activity {
+  id: string;
+  timestamp: string;
+  title_id: string;
+  activity: "FAVORITED" | "WATCH_LATER";
+}
+
+interface Title {
+  title: string;
+}
 
 export default function Sidebar() {
+  const { data: session } = useSession();
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [titles, setTitles] = useState<Record<string, Title>>({});
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      if (session?.user?.email) {
+        try {
+          const response = await fetch(`/api/activities?email=${session.user.email}`);
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+          }
+          const data = await response.json();
+
+          if (data.activities) {
+            console.log("Fetched Activities:", data.activities);
+            const titlesMap: Record<string, Title> = {};
+            data.activities.forEach((activity: Activity) => {
+              titlesMap[activity.title_id] = { title: activity.title };
+            });
+
+            setActivities(data.activities);
+            setTitles(titlesMap);
+          }
+        } catch (error) {
+          console.error("Error fetching activities:", error);
+        }
+      }
+    };
+
+    fetchActivities();
+  }, [session?.user?.email]);
+
+
   return (
     <div
       className={`bg-greenTeal max-h-[1040.680] min-h-screen p-5 transition-all duration-300 w-30 hover:w-64 group`}
     >
       <div className="flex flex-col space-y-4 text-white">
-        <Link href="/" passHref>
+        <Link href="/home" passHref>
           <span className="flex items-center cursor-pointer">
             <svg
               width="24px"
@@ -75,9 +124,30 @@ export default function Sidebar() {
             <span className="w-0 opacity-0 group-hover:w-fit group-hover:opacity-100 transition-opacity">Watch Later</span>
           </span>
         </Link>
-        <div className="w-0 bg-Teal text-darkBlue p-4 mt-4 rounded-lg max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:w-52 group-hover:opacity-100 transition-all">
+        <div className="w-0 bg-Teal text-darkBlue p-4 mt-4 rounded-lg max-h-0 overflow-hidden opacity-0 group-hover:max-h-screen group-hover:w-52 group-hover:opacity-100 transition-all">
           <h2 className="text-lg font-semibold">Latest Activities</h2>
-          <p>This is a placeholder for the activity feed.</p>
+          <div className="space-y-2">
+            {activities.map((activity) => (
+              <div key={activity.id} className="text-sm ">
+                {titles[activity.title_id] ? (
+                  <>
+                    <span>{new Date(activity.timestamp).toLocaleString()} </span>
+                    <span>
+                      {activity.activity === "FAVORITED" ? `Favorited ` : `Added `}
+                    </span>
+                    <span className="font-bold">
+                      {titles[activity.title_id].title}
+                    </span>
+                    <span>
+                      {activity.activity === "FAVORITED" ? "" : " to Watch Later"}
+                    </span>
+                  </>
+                ) : (
+                  <span>{new Date(activity.timestamp).toLocaleString()} Loading title...</span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

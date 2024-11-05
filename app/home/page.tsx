@@ -68,7 +68,6 @@ export default function HomePage() {
             <div>
               <GenreSearchHandler
                 onGenreSelect={handleGenreSelect}
-                pageType="titles"
               />
             </div>
           </div>
