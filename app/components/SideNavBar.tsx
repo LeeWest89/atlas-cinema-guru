@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 interface Activity {
   id: string;
   timestamp: string;
-  title: string;  // Changed from title_id to title
+  title: string; 
   activity: "FAVORITED" | "WATCH_LATER";
 }
 
@@ -27,7 +27,7 @@ export default function Sidebar() {
 
           if (data.activities) {
             console.log("Fetched Activities:", data.activities);
-            setActivities(data.activities); // Store activities directly
+            setActivities(data.activities);
           }
         } catch (error) {
           console.error("Error fetching activities:", error);
