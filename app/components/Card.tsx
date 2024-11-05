@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface Movie {
@@ -9,13 +10,15 @@ interface Movie {
   released: number;
   genre: string;
   favorited?: boolean;
-  watchLater?: boolean;
+  watchlater?: boolean;
 }
 
 export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
   const backgroundImageUrl = `/images/${movie.id}.webp`;
   const [isFavorited, setIsFavorited] = useState(movie.favorited || false);
-  const [isWatchLater, setIsWatchLater] = useState(false);
+  const [isWatchLater, setIsWatchLater] = useState(movie.watchlater || false);
+  const { data: session } = useSession();
+  const currentUser = session?.user;
 
   const handleFavoriteToggle = async () => {
     const method = isFavorited ? "DELETE" : "POST";
@@ -36,8 +39,22 @@ export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
   };
 
 
-  const handleWatchLaterToggle = () => {
-    setIsWatchLater(!isWatchLater);
+  const handleWatchLaterToggle = async () => {
+    const method = isWatchLater ? "DELETE" : "GET";
+    const response = await fetch(`/api/watch-later/${movie.id}`, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      setIsWatchLater(!isWatchLater);
+    } else {
+      console.error("Failed to update favorite status");
+    }
   };
 
   return (
