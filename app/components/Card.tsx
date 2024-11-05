@@ -17,9 +17,24 @@ export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
   const [isFavorited, setIsFavorited] = useState(movie.favorited || false);
   const [isWatchLater, setIsWatchLater] = useState(false);
 
-  const handleFavoriteToggle = () => {
-    setIsFavorited(!isFavorited);
+  const handleFavoriteToggle = async () => {
+    const method = isFavorited ? "DELETE" : "POST";
+    const response = await fetch(`/api/favorites/${movie.id}`, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      setIsFavorited(!isFavorited);
+    } else {
+      console.error("Failed to update favorite status");
+    }
   };
+
 
   const handleWatchLaterToggle = () => {
     setIsWatchLater(!isWatchLater);
