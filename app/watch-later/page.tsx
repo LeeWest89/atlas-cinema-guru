@@ -5,16 +5,17 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Header from "../components/Header";
 import Sidebar from "../components/SideNavBar";
+import FetchWatch from "../components/FetchWatch";
 import { Pagination } from "../components/Pagination";
 import { FavoriteGrid } from "../components/FavoriteGrid";
 
-export default function FavoritesPage() {
+export default function WatchLaterPage() {
   const { status } = useSession();
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [favorites, setFavorites] = useState<any[]>([]);
+  const [watchLater, setWatchLater] = useState<any[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -30,48 +31,25 @@ export default function FavoritesPage() {
     setTotalPages(totalCount);
   };
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const url = `/api/favorites?page=${currentPage}`;
-
-      try {
-        const response = await fetch(url, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          console.log('Fetched favorites:', data.favorites);
-          setFavorites(data.favorites.titles || []);
-          updateTotalPages(data.favorites.totalPages || 1);
-        } else {
-          console.error("Failed to fetch favorites:", data.error || "Unknown error");
-        }
-      } catch (error) {
-        console.error("Error fetching favorites:", error);
-      }
-    };
-
-    fetchFavorites();
-  }, [currentPage]);
-
   return (
     <>
       <Header />
       <div className="flex">
         <Sidebar />
         <div className="flex-col w-full">
-          <h1 className="flex justify-center font-bold text-3xl pt-10 pb-5">Favorites</h1>
+          <h1 className="flex justify-center font-bold text-3xl pt-10 pb-5">Watch Later</h1>
           <div className="flex flex-col items-center">
+            <FetchWatch
+              currentPage={currentPage}
+              updateTotalPages={updateTotalPages}
+              setWatch={setWatchLater}
+            />
             <div className="flex justify-center w-full">
               <FavoriteGrid
                 currentPage={currentPage}
                 updateTotalPages={updateTotalPages}
-                movies={favorites}
-                type="favorites"
+                movies={watchLater}
+                type="watchLater"
               />
             </div>
             <Pagination

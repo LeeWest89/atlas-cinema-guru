@@ -181,6 +181,12 @@ export async function fetchWatchLaters(page: number, userEmail: string) {
         .execute()
     ).map((row) => row.title_id);
 
+    const totalCount = await db
+      .selectFrom("watchlater")
+      .where("user_id", "=", userEmail)
+      .execute()
+      .then(rows => rows.length);
+
     const titles = await db
       .selectFrom("titles")
       .selectAll("titles")
@@ -191,12 +197,17 @@ export async function fetchWatchLaters(page: number, userEmail: string) {
       .offset((page - 1) * 6)
       .execute();
 
-    return titles.map((row) => ({
-      ...row,
-      favorited: favorites.includes(row.id),
-      watchLater: true,
-      image: `/images/${row.id}.webp`,
-    }));
+    const totalPages = Math.ceil(totalCount / 6);
+
+    return {
+      titles: titles.map((row) => ({
+        ...row,
+        favorited: favorites.includes(row.id),
+        watchLater: true,
+        image: `/images/${row.id}.webp`,
+      })),
+      totalPages: totalPages,
+    };
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch watchLater.");

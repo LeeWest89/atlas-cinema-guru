@@ -14,13 +14,10 @@ interface MovieGridProps {
   currentPage: number;
   updateTotalPages: (pages: number) => void;
   movies: Movie[];
+  type: "favorites" | "watchLater";
 }
 
-export const FandWGrid: React.FC<MovieGridProps> = ({ currentPage, updateTotalPages, movies = [] }) => {
-  if (!Array.isArray(movies)) {
-    console.error('Movies prop is not an array:', movies);
-    return null; 
-  }
+export const FavoriteGrid: React.FC<MovieGridProps> = ({ currentPage, updateTotalPages, movies = [], type }) => {
 
   return (
     <div className="px-10 py-3">

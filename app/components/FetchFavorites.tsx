@@ -9,11 +9,7 @@ type FetchFavoritesProps = {
   setFavorites: (favorites: any[]) => void; 
 };
 
-export default function FetchFavorites({
-  currentPage = 1,
-  updateTotalPages,
-  setFavorites,
-}: FetchFavoritesProps) {
+export default function FetchFavorites({ currentPage = 1, updateTotalPages, setFavorites }: FetchFavoritesProps) {
   const { data: session, status } = useSession();
   const hasFetchedRef = useRef(false);
 
