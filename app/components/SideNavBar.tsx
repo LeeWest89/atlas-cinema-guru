@@ -44,7 +44,7 @@ export default function Sidebar() {
       className={`bg-greenTeal max-h-[1040.680] min-h-screen p-5 transition-all duration-300 w-30 hover:w-64 group`}
     >
       <div className="flex flex-col space-y-4 text-white">
-        <Link href="/home" passHref>
+        <Link href="/" passHref>
           <span className="flex items-center cursor-pointer">
             <svg
               width="24px"

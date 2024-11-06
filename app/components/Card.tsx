@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface Movie {
@@ -10,13 +9,13 @@ interface Movie {
   released: number;
   genre: string;
   favorited?: boolean;
-  watchlater?: boolean;
+  watchLater?: boolean;
 }
 
 export const Card: React.FC<{ movie: Movie }> = ({ movie }) => {
   const backgroundImageUrl = `/images/${movie.id}.webp`;
   const [isFavorited, setIsFavorited] = useState(movie.favorited || false);
-  const [isWatchLater, setIsWatchLater] = useState(movie.watchlater || false);
+  const [isWatchLater, setIsWatchLater] = useState(movie.watchLater || false);
 
   const handleFavoriteToggle = async () => {
     const method = isFavorited ? "DELETE" : "POST";

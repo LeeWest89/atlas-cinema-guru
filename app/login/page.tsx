@@ -15,7 +15,7 @@ export default function LoginPage() {
       >
         <button
           type="button"
-          onClick={() => signIn("github", { callbackUrl: "/home" })}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="flex mt-4 bg-white border border-[gray] text-[#000000] rounded-lg py-2 px-4 hover:bg-[#1ED2AF] hover:text-white transition duration-200 group"
         >
           <div className="flex justify-between gap-20">

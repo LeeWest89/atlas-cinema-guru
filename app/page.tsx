@@ -3,14 +3,14 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Sidebar from "../components/SideNavBar";
-import SearchHandler from "../components/SearchHandler";
-import YearSearchHandler from "../components/YearSearchHandler";
-import GenreSearchHandler from "../components/GenreSearchHandler";
-import FetchTitles from "../components/FetchHook";
-import { Pagination } from "../components/Pagination";
-import { MovieGrid } from "../components/CardGrid";
+import Header from "./components/Header";
+import Sidebar from "./components/SideNavBar";
+import SearchHandler from "./components/SearchHandler";
+import YearSearchHandler from "./components/YearSearchHandler";
+import GenreSearchHandler from "./components/GenreSearchHandler";
+import FetchTitles from "./components/FetchHook";
+import { Pagination } from "./components/Pagination";
+import { MovieGrid } from "./components/CardGrid";
 
 export default function HomePage() {
   const { status } = useSession();
