@@ -123,7 +123,7 @@ export default function Sidebar() {
                   {activity.activity === "FAVORITED" ? `Favorited ` : `Added `}
                 </span>
                 <span className="font-bold">
-                  {activity.title}  {/* Use title directly from the activity */}
+                  {activity.title}
                 </span>
                 <span>
                   {activity.activity === "FAVORITED" ? "" : " to Watch Later"}

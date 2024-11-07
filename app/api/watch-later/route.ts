@@ -9,9 +9,7 @@ export const GET = auth(async (req: NextRequest) => {
   const params = req.nextUrl.searchParams;
   const page = params.get("page") ? Number(params.get("page")) : 1;
   const minYear = params.get("minYear") ? Number(params.get("minYear")) : 0;
-  const maxYear = params.get("maxYear")
-    ? Number(params.get("maxYear"))
-    : new Date().getFullYear();
+  const maxYear = params.get("maxYear") ? Number(params.get("maxYear")) : new Date().getFullYear();
   const query = params.get("query") ?? "";
 
   //@ts-ignore
