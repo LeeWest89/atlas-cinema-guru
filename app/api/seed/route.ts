@@ -6,10 +6,9 @@ import * as seed from "@/lib/seed";
 export async function GET() {
   try {
     await seed.begin();
-    await seed.seedTitles();
-    await seed.seedFavorites();
-    await seed.seedWatchLater();
-    await seed.seedActivity();
+    await seed.seedParentTable();
+    await seed.seedChildTable();
+    await seed.seedTransactionTable();
     await seed.commit();
 
     return Response.json({ message: "Database seeded successfully" });
