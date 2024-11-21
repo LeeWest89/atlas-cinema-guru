@@ -1,38 +1,35 @@
-// This file contains type definitions for data.
+// This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 
-export type Parent = {
-  parent_id: string;
+export type User = {
+  id: string;
   name: string;
   email: string;
   password: string;
-  avatar_img: string;
-  strip_account_id: string[];
-  balance: number[];
 };
 
-export type Child = {
+export type Topic = {
   id: string;
-  parent_id: string;
-  name: string;
-  username: string;
-  avatar_img: string;
-  checking_balance: number[];
-  savings_balance?: number[];
-  pin: number;
-  savings_goal?: number;
-  loan_total?: number;
-  current_loan_total?: number;
+  title: string;
 };
 
-export type Transactions = {
+export type Question = {
   id: string;
-  timestamp: string;
-  type: string;
-  sent_to: string;
-  sent_from: string;
-  description: string;
-  interest?: string;
-  withholdings?: string;
-  amount: number;
+  title: string;
+  topic_id: string;
+  votes: number;
+};
+
+export type Title = {
+  id: string;
+  title: string;
+  synopsis: string;
+  released: number;
+  genre: string;
+};
+
+export type UsersTitle = Title & {
+  image: string;
+  favorited: boolean;
+  watchLater: boolean;
 };
